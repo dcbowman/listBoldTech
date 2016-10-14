@@ -10,17 +10,65 @@
 
 	 <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class= "container">
+	<!--button to trigger search-->
+	<button type="submit" class="btn btn-default" id="populate">Click Here</button>
+
+
+	<h2>Addresses with Zip Codes</h2>
+
+	<!--will dump zipcode list here-->
+	<div id="zipcodeList">
+		
+	</div>
+
+
+	<h2>Addresses without Zip Codes</h2>
+
+	<!--will dump addresses without zip codes here-->
+	<div id="noZip"></div>
+	
+</div><!--end of container-->
+
 
     <!--Javascript-->
     <!--Jquery-->
  	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript">
 
-</head>
-<body>
+	//function to trigger AJAX call
+	 $('#populate').on('click',function(){
+	// 	//deletes lists prior to adding locations, avoids repetes
+	// 	$('#noZip').empty();
+	// 	$('#zipcodeList').empty();
+	
+	//function to insert JSON content into list Div	
+		var location = $(this).attr('formatted_address');
+		var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=orlando"
+
+	//hits the queryURL for data and displays it in the correct div
+	$.ajax({url: queryURL, method: 'GET'}).done(function(response){
+		//if err{ console.log(err)
+		//}
+		console.log(response);
+		$('#noZip').text(JSON.stringify(response));
+		});
+
+		return false;
+	})
+
+	
 
 
 
+	
+
+
+	</script>
 </body>
 </html>
