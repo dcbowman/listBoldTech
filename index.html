@@ -48,21 +48,25 @@
 	// 	$('#zipcodeList').empty();
 	
 	//function to insert JSON content into list Div	
-		var location = $(this).attr('formatted_address');
+		//var location = $(this).attr('formatted_address');
 		var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=orlando"
 
 	//hits the queryURL for data and displays it in the correct div
 	$.ajax({url: queryURL, method: 'GET'}).done(function(response){
-		//if err{ console.log(err)
-		//}
-		console.log(response);
-		$('#noZip').text(JSON.stringify(response));
+		//console.log(response);
+		
+		for (i = 0; i < response.results.length; i++) {
+  		var location = response.results[i].formatted_address;
+  		console.log(location);
+
+	}		
+		$('#noZip').text(location);
 		});
 
 		return false;
 	})
 
-	
+
 
 
 
